@@ -18,3 +18,11 @@ fork本仓库并设置好Secret后即可自动签到.
 | :-:              | :-:        |
 | CHICKEN_MAIL     | 几鸡用户名 |
 | CHICKEN_PASSWORD | 几鸡密码   |
+
+### 爱桌游
+
+| secret名称           | 说明         |
+| :-:                  | :-:          |
+| LOVEZHUOYOU_USER     | 爱桌游用户名 |
+| LOVEZHUOYOU_PASSWORD | 爱桌游密码   |
+

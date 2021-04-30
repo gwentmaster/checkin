@@ -27,4 +27,6 @@ jobs:
         env:
           CHICKEN_MAIL: ${{ secrets.CHICKEN_MAIL }}
           CHICKEN_PASSWORD: ${{ secrets.CHICKEN_PASSWORD }}
+          LOVEZHUOYOU_USER: ${{ secrets.LOVEZHUOYOU_USER }}
+          LOVEZHUOYOU_PASSWORD: ${{ secrets.LOVEZHUOYOU_PASSWORD }}
         run: python checkin.py
