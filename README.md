@@ -26,3 +26,16 @@ fork本仓库并设置好Secret后即可自动签到.
 | LOVEZHUOYOU_USER     | 爱桌游用户名 |
 | LOVEZHUOYOU_PASSWORD | 爱桌游密码   |
 
+### 游戏时光
+
+| secret名称      | 说明           |
+| :-:             | :-:            |
+| VGTIME_USER     | 游戏时光用户名 |
+| VGTIME_PASSWORD | 游戏时光密码   |
+
+### 旅法师营地
+
+| secret名称       | 说明             |
+| :-:              | :-:              |
+| IYINGDI_USER     | 旅法师营地用户名 |
+| IYINGDI_PASSWORD | 旅法师营地密码   |

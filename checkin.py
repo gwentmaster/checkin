@@ -6,8 +6,13 @@
 
 import json
 import logging
+import logging.config
 import os
-import traceback
+import re
+import time
+from hashlib import md5
+from typing import List, Optional
+from urllib.parse import urlencode
 
 import httpx
 
@@ -67,15 +72,116 @@ def lovezhuoyou_checkin() -> None:
     logger.info(checkin_resp.json())
 
 
+def vgtime_checkin() -> None:
+    """游戏时光签到
+    """
+
+    logger = logging.getLogger("vgtime")
+
+    client = httpx.Client()
+    username = os.environ["VGTIME_USER"]
+    password = os.environ["VGTIME_PASSWORD"]
+
+    ua = (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+        + "(KHTML, like Gecko) Chrome/90.0.4430.95 Safari/537.36"
+    )
+
+    login_resp = client.post(
+        "http://www.vgtime.com/handle/login.jhtml",
+        headers={"User-Agent": ua},
+        data={
+            "username": username,
+            "password": password,
+            "remember": "1"
+        }
+    )
+    logger.info(login_resp.json()["message"])
+
+    client.post(
+        "http://www.vgtime.com/uc/sign.jhtml",
+        headers={"User-Agent": ua}
+    )
+
+
+def iyingdi_checkin() -> None:
+    """旅法师营地签到
+    """
+
+    client = httpx.Client()
+
+    username = os.environ["IYINGDI_USER"]
+    password = os.environ["IYINGDI_PASSWORD"]
+    timestamp = str(int(time.time()))
+    key = "b8d5b38577b8bb382b0c783b474b95f9"
+
+    sign = md5(urlencode({
+            "password": password,
+            "timestamp": timestamp,
+            "type": "password",
+            "username": username,
+            "key": key
+    }).encode()).hexdigest()
+
+    login_resp = client.post(
+        "https://api.iyingdi.com/web/user/login",
+        headers={
+            "Login-Token": "nologin",
+            "Platform": "pc"
+        },
+        data={
+            "username": username,
+            "password": password,
+            "timestamp": timestamp,
+            "type": "password",
+            "sign": sign
+        }
+    )
+
+    cookies = {"yd_token": login_resp.json()["login_token"]}
+    client.cookies.update({k: str(v) for k, v in cookies.items()})
+
+    artical_resp = client.get("https://www.iyingdi.com/tz/tag/19")
+    search = re.search(r"/tz/post/\d+", artical_resp.content.decode("utf-8"))
+    if search:
+        client.get(f"https://www.iyingdi.com{search.group(0)}")
+
+
 if __name__ == "__main__":
 
-    logger = logging.getLogger()
-    logger.addHandler(logging.StreamHandler())
-    logger.setLevel(logging.INFO)
+    logging.config.dictConfig({
+        "version": 1,
+        "disable_existing_loggers": False,
+        "formatters": {
+            "default": {
+                "()": "logging.Formatter",
+                "fmt": (
+                    "[%(asctime)s]-[%(name)s]-[%(levelname)s]: %(message)s\n"
+                ),
+                "datefmt": "%m-%d %H:%M:%S"
+            }
+        },
+        "handlers": {
+            "default": {
+                "formatter": "default",
+                "class": "logging.StreamHandler",
+                "stream": "ext://sys.stdout"
+            }
+        },
+        "loggers": {
+            "": {"handlers": ["default"], "level": "INFO"},
+        }
+    })
 
-    for func in (chicken_checkin, lovezhuoyou_checkin):
+    errors = []  # type: List[Optional[Exception]]
+    for func in (
+        chicken_checkin, lovezhuoyou_checkin, vgtime_checkin, iyingdi_checkin
+    ):
         try:
             func()
         except Exception as e:
-            logger.info(traceback.format_exc())
-            raise e
+            errors.append(e)
+
+    for er in errors:
+        if isinstance(er, Exception):
+            raise er

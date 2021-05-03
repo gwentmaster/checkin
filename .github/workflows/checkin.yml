@@ -29,4 +29,8 @@ jobs:
           CHICKEN_PASSWORD: ${{ secrets.CHICKEN_PASSWORD }}
           LOVEZHUOYOU_USER: ${{ secrets.LOVEZHUOYOU_USER }}
           LOVEZHUOYOU_PASSWORD: ${{ secrets.LOVEZHUOYOU_PASSWORD }}
+          VGTIME_USER: ${{ secrets.VGTIME_USER }}
+          VGTIME_PASSWORD: ${{ secrets.VGTIME_PASSWORD }}
+          IYINGDI_USER: ${{ secrets.IYINGDI_USER }}
+          IYINGDI_PASSWORD: ${{ secrets.IYINGDI_PASSWORD }}
         run: python checkin.py
