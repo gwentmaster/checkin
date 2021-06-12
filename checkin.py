@@ -124,6 +124,7 @@ def iyingdi_checkin() -> None:
         "key": key
     }.items():
         sign_material += f"&{k}={v}"
+    sign_material = sign_material.lstrip("&")
     sign = md5(sign_material.encode()).hexdigest()
 
     login_resp = client.post(
