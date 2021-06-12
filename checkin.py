@@ -12,7 +12,6 @@ import re
 import time
 from hashlib import md5
 from typing import List, Optional
-from urllib.parse import urlencode
 
 import httpx
 
@@ -98,10 +97,11 @@ def vgtime_checkin() -> None:
     )
     logger.info(login_resp.json()["message"])
 
-    client.post(
-        "http://www.vgtime.com/uc/sign.jhtml",
+    checkin_resp = client.post(
+        "http://www.vgtime.com/uc/writesign.jhtml",
         headers={"User-Agent": ua}
     )
+    logger.info(checkin_resp.json()["message"])
 
 
 def iyingdi_checkin() -> None:
@@ -114,7 +114,6 @@ def iyingdi_checkin() -> None:
     password = os.environ["IYINGDI_PASSWORD"]
     timestamp = str(int(time.time()))
     key = "b8d5b38577b8bb382b0c783b474b95f9"
-
 
     sign_material = ""
     for k, v in {
@@ -178,9 +177,9 @@ if __name__ == "__main__":
     })
 
     errors = []  # type: List[Optional[Exception]]
-    for func in (
+    for func in [
         chicken_checkin, lovezhuoyou_checkin, vgtime_checkin, iyingdi_checkin
-    ):
+    ]:
         try:
             func()
         except Exception as e:
