@@ -152,6 +152,29 @@ def iyingdi_checkin() -> None:
         client.get(f"https://www.iyingdi.com{search.group(0)}")
 
 
+def smzdm_checkin() -> None:
+    """什么值得买签到
+    """
+
+    logger = logging.getLogger("smzdm")
+
+    client = httpx.Client()
+    sess_cookie = os.environ["SMZDM_SESS_COOKIE"]
+
+    checkin_resp = client.get(
+        url="https://zhiyou.smzdm.com/user/checkin/jsonp_checkin",
+        cookies={"sess": sess_cookie},
+        headers={
+            "User-Agent": USER_AGENT,
+            "Referer": "https://www.smzdm.com/"
+        }
+    )
+    logger.info(
+        "continue_checkin_days: "
+        + str(checkin_resp.json()["data"]["continue_checkin_days"])
+    )
+
+
 if __name__ == "__main__":
 
     logging.config.dictConfig({
@@ -180,7 +203,8 @@ if __name__ == "__main__":
 
     errors = []  # type: List[Optional[Exception]]
     for func in [
-        chicken_checkin, lovezhuoyou_checkin, vgtime_checkin, iyingdi_checkin
+        chicken_checkin, lovezhuoyou_checkin, vgtime_checkin, iyingdi_checkin,
+        smzdm_checkin
     ]:
         try:
             func()

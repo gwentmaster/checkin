@@ -33,4 +33,5 @@ jobs:
           VGTIME_PASSWORD: ${{ secrets.VGTIME_PASSWORD }}
           IYINGDI_USER: ${{ secrets.IYINGDI_USER }}
           IYINGDI_PASSWORD: ${{ secrets.IYINGDI_PASSWORD }}
+          SMZDM_SESS_COOKIE: ${{ secrets.SMZDM_SESS_COOKIE }}
         run: python checkin.py
