@@ -16,6 +16,12 @@ from typing import List, Optional
 import httpx
 
 
+USER_AGENT = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    + "(KHTML, like Gecko) Chrome/90.0.4430.95 Safari/537.36"
+)
+
+
 def chicken_checkin() -> None:
     """几鸡签到
     """
@@ -81,14 +87,9 @@ def vgtime_checkin() -> None:
     username = os.environ["VGTIME_USER"]
     password = os.environ["VGTIME_PASSWORD"]
 
-    ua = (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        + "(KHTML, like Gecko) Chrome/90.0.4430.95 Safari/537.36"
-    )
-
     login_resp = client.post(
         "http://www.vgtime.com/handle/login.jhtml",
-        headers={"User-Agent": ua},
+        headers={"User-Agent": USER_AGENT},
         data={
             "username": username,
             "password": password,
@@ -99,7 +100,7 @@ def vgtime_checkin() -> None:
 
     checkin_resp = client.post(
         "http://www.vgtime.com/uc/writesign.jhtml",
-        headers={"User-Agent": ua}
+        headers={"User-Agent": USER_AGENT}
     )
     logger.info(checkin_resp.json()["message"])
 
