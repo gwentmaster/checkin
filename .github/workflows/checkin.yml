@@ -5,7 +5,7 @@ on:
     paths-ignore: 
       - 'README.md'
   schedule:
-    - cron: 30 1 * * *
+    - cron: 30 21 * * *
   watch:
     types: [started]
 
@@ -34,4 +34,5 @@ jobs:
           IYINGDI_USER: ${{ secrets.IYINGDI_USER }}
           IYINGDI_PASSWORD: ${{ secrets.IYINGDI_PASSWORD }}
           SMZDM_SESS_COOKIE: ${{ secrets.SMZDM_SESS_COOKIE }}
+          BILIBILI_SESSDATA_COOKIE: ${{ secrets.BILIBILI_SESSDATA_COOKIE }}
         run: python checkin.py

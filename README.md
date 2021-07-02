@@ -49,3 +49,9 @@ fork本仓库并设置好Secret后即可自动签到.
 该cookie获取方法, 打开什么值得买网站, *登录*后按 `F12` 进入控制台, 点击 `Application` -> `Cookies`, 找到名为 `sess` 的cookie即可.
 
 ![什么值得买cookie位置](doc/img/smzdm_sess_location.png)
+
+### 哔哩哔哩
+
+| secret名称               | 说明                       |
+| :-:                      | :-:                        |
+| BILIBILI_SESSDATA_COOKIE | 哔哩哔哩 `SESSDATA` cookie |

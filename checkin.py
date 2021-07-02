@@ -175,6 +175,24 @@ def smzdm_checkin() -> None:
     )
 
 
+def bilibili_checkin() -> None:
+    """哔哩哔哩签到
+    """
+
+    logger = logging.getLogger("bilibili")
+
+    sessdata_cookie = os.environ["BILIBILI_SESSDATA_COOKIE"]
+    client = httpx.Client(
+        headers={"User-Agent": USER_AGENT},
+        cookies={"SESSDATA": sessdata_cookie}
+    )
+
+    checkin_resp = client.get(
+        url="https://api.live.bilibili.com/xlive/web-ucenter/v1/sign/DoSign"
+    )
+    logger.info(checkin_resp.json()["message"])
+
+
 if __name__ == "__main__":
 
     logging.config.dictConfig({
@@ -204,7 +222,7 @@ if __name__ == "__main__":
     errors = []  # type: List[Optional[Exception]]
     for func in [
         chicken_checkin, lovezhuoyou_checkin, vgtime_checkin, iyingdi_checkin,
-        smzdm_checkin
+        smzdm_checkin, bilibili_checkin
     ]:
         try:
             func()
