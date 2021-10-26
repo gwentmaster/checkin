@@ -35,4 +35,6 @@ jobs:
           IYINGDI_PASSWORD: ${{ secrets.IYINGDI_PASSWORD }}
           SMZDM_SESS_COOKIE: ${{ secrets.SMZDM_SESS_COOKIE }}
           BILIBILI_SESSDATA_COOKIE: ${{ secrets.BILIBILI_SESSDATA_COOKIE }}
+          ZHUTIX_USER: ${{ secrets.ZHUTIX_USER }}
+          ZHUTIX_PASSWORD: ${{ secrets.ZHUTIX_PASSWORD }}
         run: python checkin.py

@@ -193,6 +193,40 @@ def bilibili_checkin() -> None:
     logger.info(checkin_resp.json()["message"])
 
 
+def zhutix_checkin() -> None:
+    """致美化签到
+    """
+
+    logger = logging.getLogger("zhutix")
+
+    client = httpx.Client(headers={"User-Agent": USER_AGENT})
+
+    username = os.environ["ZHUTIX_USER"]
+    password = os.environ["ZHUTIX_PASSWORD"]
+
+    resp = client.post(
+        url="https://zhutix.com/wp-json/b2/v1/getRecaptcha",
+        data={"number": "4", "whidth": "186", "height": "50"}
+    )
+    captcha_token = resp.json()["token"]
+
+    login_resp = client.post(
+        url="https://zhutix.com/wp-json/jwt-auth/v1/token",
+        data={
+            "username": username,
+            "password": password,
+            "token": captcha_token
+        }
+    )
+    user_token = login_resp.json()["token"]
+
+    checkin_resp = client.post(
+        url="https://zhutix.com/wp-json/b2/v1/userMission",
+        headers={"Authorization": f"Bearer {user_token}"}
+    )
+    logger.info(checkin_resp.text)
+
+
 if __name__ == "__main__":
 
     logging.config.dictConfig({
@@ -222,7 +256,7 @@ if __name__ == "__main__":
     errors = []  # type: List[Optional[Exception]]
     for func in [
         chicken_checkin, lovezhuoyou_checkin, vgtime_checkin, iyingdi_checkin,
-        smzdm_checkin, bilibili_checkin
+        smzdm_checkin, bilibili_checkin, zhutix_checkin
     ]:
         try:
             func()

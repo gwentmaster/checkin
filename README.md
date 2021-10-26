@@ -55,3 +55,10 @@ fork本仓库并设置好Secret后即可自动签到.
 | secret名称               | 说明                       |
 | :-:                      | :-:                        |
 | BILIBILI_SESSDATA_COOKIE | 哔哩哔哩 `SESSDATA` cookie |
+
+### 致美化
+
+| secret名称      | 说明         |
+| :-:             | :-:          |
+| ZHUTIX_USER     | 致美化用户名 |
+| ZHUTIX_PASSWORD | 致美化密码   |
