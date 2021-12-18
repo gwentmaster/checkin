@@ -62,3 +62,10 @@ fork本仓库并设置好Secret后即可自动签到.
 | :-:             | :-:          |
 | ZHUTIX_USER     | 致美化用户名 |
 | ZHUTIX_PASSWORD | 致美化密码   |
+
+### 鸟云
+
+| secret名称       | 说明       |
+| :-:              | :-:        |
+| NIAOYUN_USER     | 鸟云用户名 |
+| NIAOYUN_PASSWORD | 鸟云密码   |

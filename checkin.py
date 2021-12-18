@@ -227,6 +227,31 @@ def zhutix_checkin() -> None:
     logger.info(checkin_resp.text)
 
 
+def niaoyun_checkin() -> None:
+    """鸟云签到
+    """
+
+    logger = logging.getLogger("niaoyun")
+    client = httpx.Client(headers={"User-Agent": USER_AGENT})
+
+    email = os.environ["NIAOYUN_USER"]
+    password = os.environ["NIAOYUN_PASSWORD"]
+
+    login_resp = client.post(
+        url="https://niaoyun.me/auth/login",
+        data={
+            "code": "",
+            "email": email,
+            "passwd": password,
+            "remember_me": "week"
+        }
+    )
+    logger.info(login_resp.json()["msg"])
+
+    checkin_resp = client.post("https://niaoyun.me/user/checkin")
+    logger.info(checkin_resp.json()["msg"])
+
+
 if __name__ == "__main__":
 
     logging.config.dictConfig({
@@ -256,7 +281,7 @@ if __name__ == "__main__":
     errors = []  # type: List[Optional[Exception]]
     for func in [
         chicken_checkin, lovezhuoyou_checkin, vgtime_checkin, iyingdi_checkin,
-        smzdm_checkin, bilibili_checkin, zhutix_checkin
+        smzdm_checkin, bilibili_checkin, zhutix_checkin, niaoyun_checkin
     ]:
         try:
             func()

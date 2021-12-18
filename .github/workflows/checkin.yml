@@ -37,4 +37,6 @@ jobs:
           BILIBILI_SESSDATA_COOKIE: ${{ secrets.BILIBILI_SESSDATA_COOKIE }}
           ZHUTIX_USER: ${{ secrets.ZHUTIX_USER }}
           ZHUTIX_PASSWORD: ${{ secrets.ZHUTIX_PASSWORD }}
+          NIAOYUN_USER: ${{ secrets.NIAOYUN_USER }}
+          NIAOYUN_PASSWORD: ${{ secrets.NIAOYUN_PASSWORD }}
         run: python checkin.py
