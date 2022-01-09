@@ -39,4 +39,6 @@ jobs:
           ZHUTIX_PASSWORD: ${{ secrets.ZHUTIX_PASSWORD }}
           NIAOYUN_USER: ${{ secrets.NIAOYUN_USER }}
           NIAOYUN_PASSWORD: ${{ secrets.NIAOYUN_PASSWORD }}
+          PSYDUCK_USER: ${{ secrets.PSYDUCK_USER }}
+          PSYDUCK_PASSWORD: ${{ secrets.PSYDUCK_PASSWORD }}
         run: python checkin.py

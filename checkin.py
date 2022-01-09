@@ -252,6 +252,30 @@ def niaoyun_checkin() -> None:
     logger.info(checkin_resp.json()["msg"])
 
 
+def psyduck_checkin() -> None:
+    """psyduck签到
+    """
+
+    logger = logging.getLogger("psyduck")
+    client = httpx.Client(headers={"User-Agent": USER_AGENT})
+
+    email = os.environ["PSYDUCK_USER"]
+    password = os.environ["PSYDUCK_PASSWORD"]
+
+    login_resp = client.post(
+        url="https://psyduck.live/auth/login",
+        data={
+            "code": "",
+            "email": email,
+            "passwd": password,
+        }
+    )
+    logger.info(login_resp.json()["msg"])
+
+    checkin_resp = client.post("https://psyduck.live/user/checkin")
+    logger.info(checkin_resp.json()["msg"])
+
+
 if __name__ == "__main__":
 
     logging.config.dictConfig({
@@ -281,7 +305,8 @@ if __name__ == "__main__":
     errors = []  # type: List[Optional[Exception]]
     for func in [
         chicken_checkin, lovezhuoyou_checkin, vgtime_checkin, iyingdi_checkin,
-        smzdm_checkin, bilibili_checkin, zhutix_checkin, niaoyun_checkin
+        smzdm_checkin, bilibili_checkin, zhutix_checkin, niaoyun_checkin,
+        psyduck_checkin
     ]:
         try:
             func()

@@ -69,3 +69,10 @@ fork本仓库并设置好Secret后即可自动签到.
 | :-:              | :-:        |
 | NIAOYUN_USER     | 鸟云用户名 |
 | NIAOYUN_PASSWORD | 鸟云密码   |
+
+### psyduck
+
+| secret名称       | 说明          |
+| :-:              | :-:           |
+| PSYDUCK_USER     | psyduck用户名 |
+| PSYDUCK_PASSWORD | psyduck密码   |
