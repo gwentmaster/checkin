@@ -76,3 +76,10 @@ fork本仓库并设置好Secret后即可自动签到.
 | :-:              | :-:           |
 | PSYDUCK_USER     | psyduck用户名 |
 | PSYDUCK_PASSWORD | psyduck密码   |
+
+### 秒翻
+
+| secret名称               | 说明       |
+| :-:                      | :-:        |
+| MIAOTRANSLATION_USER     | 秒翻用户名 |
+| MIAOTRANSLATION_PASSWORD | 秒翻密码   |

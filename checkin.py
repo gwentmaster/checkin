@@ -276,6 +276,32 @@ def psyduck_checkin() -> None:
     logger.info(checkin_resp.json()["msg"])
 
 
+def miaotranslation_checkin() -> None:
+    """秒翻签到
+    """
+
+    logger = logging.getLogger("miaotranslation")
+    client = httpx.Client(headers={"User-Agent": USER_AGENT})
+
+    email = os.environ["MIAOTRANSLATION_USER"]
+    password = os.environ["MIAOTRANSLATION_PASSWORD"]
+
+    login_resp = client.post(
+        url="https://papi.miaotranslation.com/api/account/login",
+        headers={"Content-Type": "application/json;charset=UTF-8"},
+        content=f'{{"email": "{email}", "pwd": "{password}"}}'
+    )
+    user_token = login_resp.json()["data"]["token"]
+
+    checkin_resp = client.post(
+        url="https://papi.miaotranslation.com/api/daily/receive",
+        headers={
+            "Authorization": f"Bearer {user_token}"
+        }
+    )
+    logger.info(checkin_resp.json()["info"])
+
+
 if __name__ == "__main__":
 
     logging.config.dictConfig({
@@ -306,7 +332,7 @@ if __name__ == "__main__":
     for func in [
         chicken_checkin, lovezhuoyou_checkin, vgtime_checkin, iyingdi_checkin,
         smzdm_checkin, bilibili_checkin, zhutix_checkin, niaoyun_checkin,
-        psyduck_checkin
+        psyduck_checkin, miaotranslation_checkin
     ]:
         try:
             func()
