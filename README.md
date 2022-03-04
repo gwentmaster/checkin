@@ -63,13 +63,6 @@ fork本仓库并设置好Secret后即可自动签到.
 | ZHUTIX_USER     | 致美化用户名 |
 | ZHUTIX_PASSWORD | 致美化密码   |
 
-### 鸟云
-
-| secret名称       | 说明       |
-| :-:              | :-:        |
-| NIAOYUN_USER     | 鸟云用户名 |
-| NIAOYUN_PASSWORD | 鸟云密码   |
-
 ### psyduck
 
 | secret名称       | 说明          |
@@ -83,3 +76,10 @@ fork本仓库并设置好Secret后即可自动签到.
 | :-:                      | :-:        |
 | MIAOTRANSLATION_USER     | 秒翻用户名 |
 | MIAOTRANSLATION_PASSWORD | 秒翻密码   |
+
+### 觔斗雲
+
+| secret名称          | 说明         |
+| :-:                 | :-:          |
+| SOMERSAULT_USER     | 觔斗雲用户名 |
+| SOMERSAULT_PASSWORD | 觔斗雲密码   |

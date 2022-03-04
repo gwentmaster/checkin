@@ -227,31 +227,6 @@ def zhutix_checkin() -> None:
     logger.info(checkin_resp.text)
 
 
-def niaoyun_checkin() -> None:
-    """鸟云签到
-    """
-
-    logger = logging.getLogger("niaoyun")
-    client = httpx.Client(headers={"User-Agent": USER_AGENT})
-
-    email = os.environ["NIAOYUN_USER"]
-    password = os.environ["NIAOYUN_PASSWORD"]
-
-    login_resp = client.post(
-        url="https://niaoyun.me/auth/login",
-        data={
-            "code": "",
-            "email": email,
-            "passwd": password,
-            "remember_me": "week"
-        }
-    )
-    logger.info(login_resp.json()["msg"])
-
-    checkin_resp = client.post("https://niaoyun.me/user/checkin")
-    logger.info(checkin_resp.json()["msg"])
-
-
 def psyduck_checkin() -> None:
     """psyduck签到
     """
@@ -302,6 +277,30 @@ def miaotranslation_checkin() -> None:
     logger.info(checkin_resp.json()["info"])
 
 
+def somersault_checkin() -> None:
+    """觔斗雲签到
+    """
+
+    logger = logging.getLogger("somersault")
+    client = httpx.Client(headers={"User-Agent": USER_AGENT})
+
+    email = os.environ["SOMERSAULT_USER"]
+    password = os.environ["SOMERSAULT_PASSWORD"]
+
+    login_resp = client.post(
+        url="https://www.somersaultcloud.xyz/auth/login",
+        data={
+            "code": "",
+            "email": email,
+            "passwd": password,
+        }
+    )
+    logger.info(login_resp.json()["msg"])
+
+    checkin_resp = client.post("https://www.somersaultcloud.xyz/user/checkin")
+    logger.info(checkin_resp.json()["msg"])
+
+
 if __name__ == "__main__":
 
     logging.config.dictConfig({
@@ -331,8 +330,8 @@ if __name__ == "__main__":
     errors = []  # type: List[Optional[Exception]]
     for func in [
         chicken_checkin, lovezhuoyou_checkin, vgtime_checkin, iyingdi_checkin,
-        smzdm_checkin, bilibili_checkin, zhutix_checkin, niaoyun_checkin,
-        psyduck_checkin, miaotranslation_checkin
+        smzdm_checkin, bilibili_checkin, zhutix_checkin, psyduck_checkin,
+        miaotranslation_checkin, somersault_checkin
     ]:
         try:
             func()
