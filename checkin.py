@@ -209,7 +209,10 @@ def zhutix_checkin() -> None:
         url="https://zhutix.com/wp-json/b2/v1/getRecaptcha",
         data={"number": "4", "whidth": "186", "height": "50"}
     )
-    captcha_token = resp.json()["token"]
+    captcha_token = re.search(  # type: ignore[union-attr]
+        r'(?<="token":").+?(?=")',
+        resp.text
+    ).group(0)
 
     login_resp = client.post(
         url="https://zhutix.com/wp-json/jwt-auth/v1/token",
@@ -223,7 +226,11 @@ def zhutix_checkin() -> None:
 
     checkin_resp = client.post(
         url="https://zhutix.com/wp-json/b2/v1/userMission",
-        headers={"Authorization": f"Bearer {user_token}"}
+        headers={
+            "Authorization": f"Bearer {user_token}",
+            "Origin": "https://zhutix.com",
+            "Referer": "https://zhutix.com/task",
+        }
     )
     logger.info(checkin_resp.text)
 
