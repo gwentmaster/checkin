@@ -11,7 +11,8 @@ import os
 import re
 import time
 from hashlib import md5
-from typing import List, Optional
+from traceback import format_exc
+from typing import List
 
 import httpx
 
@@ -327,7 +328,7 @@ if __name__ == "__main__":
         }
     })
 
-    errors = []  # type: List[Optional[Exception]]
+    errors = []  # type: List[Exception]
     for func in [
         chicken_checkin, lovezhuoyou_checkin, vgtime_checkin, iyingdi_checkin,
         smzdm_checkin, bilibili_checkin, zhutix_checkin, psyduck_checkin,
@@ -338,6 +339,10 @@ if __name__ == "__main__":
         except Exception as e:
             errors.append(e)
 
+    if errors:
+        print("============ errors ============")
     for er in errors:
-        if isinstance(er, Exception):
+        try:
             raise er
+        except Exception:
+            print(f"--------------------------\n\n{format_exc()}")
