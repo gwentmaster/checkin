@@ -205,6 +205,7 @@ def zhutix_checkin() -> None:
     username = os.environ["ZHUTIX_USER"]
     password = os.environ["ZHUTIX_PASSWORD"]
 
+    # 登录
     resp = client.post(
         url="https://zhutix.com/wp-json/b2/v1/getRecaptcha",
         data={"number": "4", "whidth": "186", "height": "50"}
@@ -224,13 +225,17 @@ def zhutix_checkin() -> None:
     )
     user_token = login_resp.json()["token"]
 
+    # 需要请求此接口后才能签到成功, 接口作用可能为激活签到任务
+    client.post(
+        url="https://zhutix.com/wp-json/b2/v1/getUserMission",
+        headers={"Authorization": f"Bearer {user_token}"},
+        data={"count": 10, "paged": 1}
+    )
+
+    # 签到
     checkin_resp = client.post(
         url="https://zhutix.com/wp-json/b2/v1/userMission",
-        headers={
-            "Authorization": f"Bearer {user_token}",
-            "Origin": "https://zhutix.com",
-            "Referer": "https://zhutix.com/task",
-        }
+        headers={"Authorization": f"Bearer {user_token}"}
     )
     logger.info(checkin_resp.text)
 
