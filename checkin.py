@@ -200,7 +200,7 @@ def zhutix_checkin() -> None:
 
     logger = logging.getLogger("zhutix")
 
-    client = httpx.Client(headers={"User-Agent": USER_AGENT})
+    client = httpx.Client(headers={"User-Agent": USER_AGENT}, timeout=60)
 
     username = os.environ["ZHUTIX_USER"]
     password = os.environ["ZHUTIX_PASSWORD"]
