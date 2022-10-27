@@ -42,4 +42,6 @@ jobs:
           MIAOTRANSLATION_PASSWORD: ${{secrets.MIAOTRANSLATION_PASSWORD }}
           SOMERSAULT_USER: ${{ secrets.SOMERSAULT_USER }}
           SOMERSAULT_PASSWORD: ${{ secrets.SOMERSAULT_PASSWORD }}
+          PUREFAST_USER: ${{ secrets.PUREFAST_USER }}
+          PUREFAST_PASSWORD: ${{ secrets.PUREFAST_PASSWORD }}
         run: python checkin.py

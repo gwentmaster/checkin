@@ -314,6 +314,30 @@ def somersault_checkin() -> None:
     logger.info(checkin_resp.json()["msg"])
 
 
+def purefast_checkin() -> None:
+    """purefast签到
+    """
+
+    logger = logging.getLogger("purefast")
+    client = httpx.Client(headers={"User-Agent": USER_AGENT})
+
+    email = os.environ["PUREFAST_USER"]
+    password = os.environ["PUREFAST_PASSWORD"]
+
+    login_resp = client.post(
+        url="https://purefast.net/auth/login",
+        data={
+            "code": "",
+            "email": email,
+            "passwd": password,
+        }
+    )
+    logger.info(login_resp.json()["msg"])
+
+    checkin_resp = client.post("https://purefast.net/user/checkin")
+    logger.info(checkin_resp.json()["msg"])
+
+
 if __name__ == "__main__":
 
     logging.config.dictConfig({
@@ -344,7 +368,7 @@ if __name__ == "__main__":
     for func in [
         chicken_checkin, lovezhuoyou_checkin, vgtime_checkin, iyingdi_checkin,
         smzdm_checkin, bilibili_checkin, zhutix_checkin, psyduck_checkin,
-        miaotranslation_checkin, somersault_checkin
+        miaotranslation_checkin, somersault_checkin, purefast_checkin
     ]:
         try:
             func()

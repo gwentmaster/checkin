@@ -83,3 +83,10 @@ fork本仓库并设置好Secret后即可自动签到.
 | :-:                 | :-:          |
 | SOMERSAULT_USER     | 觔斗雲用户名 |
 | SOMERSAULT_PASSWORD | 觔斗雲密码   |
+
+### purefast
+
+| secret名称        | 说明           |
+| :-:               | :-:            |
+| PUREFAST_USER     | purefast用户名 |
+| PUREFAST_PASSWORD | purefast密码   |
